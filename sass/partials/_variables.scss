@@ -1,0 +1,31 @@
+/* COLORS */
+$text-black: rgba(0,0,0,0.8);
+$mask-black: hsla(345, 6%, 13%, 0.5);
+$white: rgba(255,255,255,1.0);
+
+/* PRIMARY COLOR PALETTE */
+$black: #071B24;
+$purple: #022036;
+$dark-blue: #0C2F4F;
+$weird-gray: #264242;
+$azure: #0A5B70;
+
+/* SECONDARY COLOR PALETTE */
+$sky-blue: #0099FF;
+$middle-blue: #0060A8;
+$seafoam: #00CF88;
+$gray: #89898C;
+$lime-green: #00FF59;
+
+
+$magenta: hsla(328, 67%, 37%, 1.0);
+$red: hsla(358, 80%, 52%, 1.0);
+
+/* FONTS */
+$title-font: "raleway", serif;
+$display-font: "raleway", serif;
+
+/* STACK */
+$base-padding: 3rem;
+$golden: 1.61803398875;
+$header-height: 80px;

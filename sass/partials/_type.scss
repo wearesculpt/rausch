@@ -1,0 +1,110 @@
+/* =HIERARCHY */
+$h1: 4.209rem;
+$h2: 3.157rem;
+$h3: 2.369rem;
+$h4: 1.777rem;
+$h5: 1.333rem;
+$base: 1rem;
+$small: 0.75rem;
+
+/* =HEADINGS */
+%headings {
+  color: $white;
+  display: block;
+  font-family: $title-font;
+  font-weight: 800;
+  line-height: 1;
+  position: relative;
+  text-rendering: optimizelegibility;
+  text-transform: uppercase;
+}
+
+.secondary-heading {
+  @include respond-to(laptop) {
+    font-size: $h4;
+  }
+  @include respond-to(desktop) {
+    font-size: $h3;
+  }
+  font-size: $h5;
+}
+
+h1, h2, h3, h4 { @extend %headings; }
+
+h1 {
+  @include respond-to(laptop) {
+    font-size: $h3;
+  }
+  @include respond-to(desktop) {
+    font-size: $h2;
+  }
+  font-size: $h4;
+  margin-bottom: $small;
+  &::after {
+    @include translate(-50px,0);
+    background-color: $white;
+    content: "";
+    position: absolute;
+    bottom: -$base; left: 50%;
+    width: 100px; height: 2px;
+  }
+}
+
+h2 {
+  @include respond-to(laptop) {
+    font-size: $h4;
+  }
+  @include respond-to(desktop) {
+    font-size: $h3;
+  }
+  font-size: $h5;
+}
+
+h3 {
+  @include respond-to(tablet) {
+    font-size: $h5;
+  }
+  @include respond-to(laptop) {
+    font-size: $h4;
+  }
+  @include respond-to(desktop) {
+    font-size: $h3;
+  }
+  font-size: $base;
+}
+
+h4 { font-size: $h4; }
+
+/* =COMMON
+----------------------------------------------- */
+p {
+  @include respond-to(tablet) {
+    font-size: $base;
+  }
+  font-family: $display-font;
+  font-size: $small;
+  font-weight: 300;
+  line-height: $golden;
+  em { font-style: italic; }
+}
+
+a {
+  font-size: $base;
+  &:hover {
+    @include transition(color, 0.3s, ease);
+  }
+}
+
+blockquote {
+  p {
+    font-size: $h4 !important;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+}
+
+strong { font-weight: 700; }
+
+/* =LINKS
+----------------------------------------------- */
+a, a:link, a:visited { text-decoration: none; }

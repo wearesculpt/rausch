@@ -1,0 +1,203 @@
+@mixin line {
+  @include transition(all, 0.2s, ease);
+  display: inline-block;
+  width: $button-size;
+  height: $button-size/9;
+  background: #FFF;
+  border-radius: $button-size/14;
+}
+
+$button-size: $h4;
+
+.lines-button {
+  @include transition(all, 0.2s, ease);
+  @include respond-to(tablet) {
+    display: none;
+  }
+  display: inline-block;
+  cursor: pointer;
+  position: fixed;
+  top: $h5; right: $h4;
+  user-select: none;
+  border-radius: $button-size/7;
+  z-index: 99999;
+  &:hover {
+    opacity: 1;
+  }
+  &:hover .lines::before {
+    top: 0.5rem;
+  }
+  &:hover .lines::after {
+    top: -0.5rem;
+  }
+  &:active {
+    transition: 0;
+    background: rgba(0, 0, 0, .1);
+  }
+  .lines {
+    @include line;
+    position: relative;
+    &::before, &::after {
+      @include line;
+      position: absolute;
+      left: 0;
+      content: '';
+      transform-origin: $button-size/14 center;
+    }
+    &::before {
+      top: $button-size/4;
+    }
+    &::after {
+      top: -$button-size/4;
+    }
+  }
+}
+
+.lines-button.close .lines {
+  /*hide the middle line*/
+
+  background: transparent;
+  /*overlay the lines by setting both their top values to 0*/
+
+  &::before, &::after {
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    top: 0;
+    width: $button-size;
+  }
+  // rotate the lines to form the x shape
+  &::before {
+    @include rotate(Z, 45);
+  }
+  &::after {
+    @include rotate(Z, -45);
+  }
+}
+/* PRIMARY NAV */
+
+body.pml-open .push-menu-right {
+  right: 0;
+}
+
+body.pml-open main {
+  right: 12%;
+}
+
+.nav-primary {
+  @include respond-to(tablet) {
+    display: inline-block;
+    margin-left: $h4;
+    position: absolute;
+    height: 100%;
+  }
+  display: block;
+  position: relative;
+  width: 100%;
+  z-index: 99999;
+  ul {
+    @include respond-to(tablet) {
+      margin-top: 0;
+    }
+    margin-top: $h4;
+    width: auto; height: auto;
+    li {
+      @include transition(all, 0.2s, ease-in-out);
+      @include respond-to(tablet) {
+        display: inline-block;
+      }
+      display: block;
+      position: relative;
+      text-align: left;
+      a {
+        @include transition(all, 0.2s, ease-in-out);
+        @include respond-to(tablet) {
+          font-size: $base;
+          height: 100%;
+          line-height: $header-height;
+          padding: 0 1.5vw;
+        }
+        color: $white;
+        display: block;
+        font-family: $title-font;
+        font-size: $h5;
+        font-weight: 800;
+        line-height: 1.1;
+        padding: $h5;
+        position: relative;
+        text-align: center;
+        text-transform: uppercase;
+        &:hover { background-color: $dark-blue; }
+      }
+    }
+  }
+}
+
+/* SECONDARY NAV */
+
+.nav-secondary {
+  @include respond-to(tablet) {
+    display: inline-block;
+    background-color: transparentize($dark-blue, 0.1);
+    padding-left: $h1*2;
+    position: absolute;
+    top: 80px; left: 0;
+    height: auto;
+  }
+  background-color: $dark-blue;
+  display: block;
+  position: relative;
+  width: 100%; height: auto;
+  z-index: 99999;
+  left: 0;
+  ul {
+    li {
+      @include transition(all, 0.2s, ease-in-out);
+      @include respond-to(tablet) {
+        display: inline-block;
+        font-size: .75rem;
+      }
+      display: block;
+      position: relative;
+      text-align: left;
+      a {
+        @include transition(all, 0.2s, ease-in-out);
+        @include respond-to(tablet) {
+          font-size: .8em;
+          height: 100%;
+          line-height: 40px;
+          padding: 0 1.5vw;
+        }
+        color: $white;
+        display: block;
+        font-family: $title-font;
+        font-size: $small;
+        font-weight: 500;
+        line-height: 1.1;
+        padding: $h5;
+        position: relative;
+        text-align: center;
+        text-transform: uppercase;
+        &:hover { background-color: $azure; }
+      }
+    }
+  }
+}
+
+/* PAGE NAV */
+a[rel="prev"],
+a[rel="next"] {
+  @include transition(all, .2s, ease-in-out, 0.1s);
+  font-family: $title-font;
+  font-size: $base;
+  font-weight: 700;
+  padding: 10px;
+  position: fixed;
+  bottom: 300px;
+  text-transform: uppercase;
+  width: 80px;
+  z-index: 1;
+  &:hover {
+    color: $white;
+  }
+}

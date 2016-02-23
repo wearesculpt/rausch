@@ -1,0 +1,1063 @@
+/*
+Theme Name: Rausch
+Theme URI: http://www.rauschproductions.com/
+Description: A custom Wordpress portfolio site for Rausch Productions
+Author: Matthew Mesaros
+Version: 1.0
+
+License: GNU General Public License v2.0
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+*/
+
+@import 'partials/reset';
+@import 'partials/variables';
+@import 'partials/media-queries';
+@import 'partials/mixins';
+@import 'partials/type';
+@import 'partials/base';
+@import 'partials/functions';
+@import 'partials/grid';
+@import 'partials/navigation';
+@import 'partials/animations';
+@import 'partials/superslides';
+@import 'partials/poly-object-fit';
+
+/* =BROWSER FIXES
+----------------------------------------------- */
+.no-flexbox .container, .no-flexbox .phase-title, .no-flexbox .article-title, .no-flexbox .intro header {
+  @include translate(-50%, -50%);
+  position: absolute!important;
+  top: 50%; left: 50%;
+}
+
+.no-flexbox .phase-block header {
+  padding: 12rem 7rem 7rem;
+}
+
+/* =GLOBALS
+----------------------------------------------- */
+main {
+  @include transition(right, 0.2s, ease-in-out);
+  background-color: $azure;
+  position: relative;
+  right: 0;
+  z-index: 10;
+}
+
+article {
+  @include respond-to(laptop) {
+    padding: $h2;
+  }
+  @include respond-to(desktop) {
+    padding: $h1;
+  }
+  margin: 0 auto;
+  overflow: hidden;
+  padding: $h3;
+  position: relative;
+  text-align: left;
+  width: 100%; height: 100%;
+}
+
+section {
+  position: relative;
+}
+
+.loading {
+  background: url('img/loading-2.gif') no-repeat center center $black;
+  width: 100%;
+  height: 100%;
+  z-index: 9999999;
+  main { opacity: 0; }
+}
+
+.loaded main {
+  opacity: 1;
+}
+
+[data-type="background"] {
+  @extend %mask;
+  transform: translate3d(0, 0, 0);
+  & > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* =EXTENSIBLE CLASSES
+----------------------------------------------- */
+%mask {
+  &::after {
+    background: hsla(345, 6%, 13%, 0.65);
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+}
+
+%article-headers {
+  @include respond-to(tablet) {
+    position: absolute;
+    width: auto;
+  }
+  color: $white;
+  font-size: $h4;
+  // font-weight: 300;
+  letter-spacing: 1px;
+  padding: $base - 0.2 $h4 $base;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.article-header {
+  @extend %article-headers;
+}
+
+%module {
+  @include transition(all, 0.2s, ease-in-out);
+  overflow: hidden;
+  position: relative;
+  min-height: 350px;
+}
+
+.bg-image-wrap {
+  @include respond-to(tablet) {
+    padding: 0 8rem;
+  }
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.intro-header {
+  @include translate(0, -50%);
+  @include respond-to(mobile) {
+    top: 50%;
+    padding: 1rem;
+  }
+  @include respond-to(tablet) {
+    padding: $h2 4rem;
+    top: 35%;
+  }
+  @include respond-to(laptop) {
+    top: 50%;
+  }
+  position: absolute;
+  width: 100%;
+}
+
+%centerpiece {
+  color: $white;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+  width: 100%; height: auto;
+  z-index: 1;
+  p {
+    padding: $base 0;
+  }
+}
+
+.centerpiece {
+  @extend %centerpiece;
+}
+
+%halfpiece {
+  @include respond-to(tablet) {
+    float: left;
+    padding: $h4;
+    width: 50%;
+  }
+  position: relative;
+  text-align: center;
+  width: 100%;
+  color: $white;
+  height: auto;
+  p {
+    padding: $base 0;
+  }
+}
+
+.halfpiece {
+  @extend %halfpiece;
+}
+
+%grid-list {
+  text-align: center;
+  background-size:cover;
+  position: relative;
+  h1 {
+    color: $white;
+  }
+  p {
+    color: $white;
+    font-size: $base;
+    font-weight: 300;
+    margin-top: 3rem;
+  }
+  button {
+    @extend %button;
+  }
+  li {
+    text-align: center;
+  }
+}
+
+%grid-elem {
+  height: $h1 * 5;
+  background-size: cover;
+  background-position: center center;
+  color: white;
+  a {
+    position: absolute;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+  }
+  h2 {
+    text-align: center;
+    vertical-align: baseline;
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    padding: 0 2rem;
+  }
+}
+
+%trifecta {
+  color: white;
+  text-align: left;
+  padding: 3rem;
+  h2 {
+    font-weight: 100;
+  }
+}
+
+%blockquote {
+  @include respond-to(laptop) {
+    padding: $h5 $h5;
+  }
+  font-weight: 100;
+  padding: $small;
+  // &::before {
+  //   content: '\201C';
+  //   font-size: 275%;
+  //   position: absolute;
+  //   top: 2rem; left: 0;
+  //   width: auto; height: auto;
+  // }
+  // &::after {
+  //   content: '\201D';
+  //   font-size: 275%;
+  //   position: absolute;
+  //   top: 2rem; right: 0;
+  //   width: auto; height: auto;
+  // }
+}
+
+%button {
+  @include transition(all, 0.2s, ease-in-out);
+  background: transparent;
+  color: $seafoam;
+  cursor: pointer;
+  border: 1px solid transparentize($gray, 0.5);
+  border-color: $seafoam;
+  display: inline-block;
+  font-size: $base;
+  font-weight: 300;
+  font-family: $title-font;
+  overflow: hidden;
+  padding: $small $base;
+  position: relative;
+  z-index: 1;
+  &:hover {
+    background: $seafoam;
+    color: $white;
+  }
+}
+
+/* =HEADER
+----------------------------------------------- */
+.global-header {
+  @include transition(all, 0.2s, ease-in-out);
+  @include respond-to(tablet) {
+    background-color: transparentize($black, 0.1);
+    bottom: auto; left: 0; right: 0;
+    height: $header-height;
+  }
+  background-color: $black;
+  position: fixed;
+  top: 0; right: -100%; bottom: 0;
+  width: 100%; height: 100%;
+  z-index: 99999;
+}
+
+.base-header {
+  height: $header-height - 10px;
+  nav ul .nav-item a {
+    @include respond-to(tablet) {
+      font-size: $base;
+      line-height: $header-height - 10px;
+    }
+  }
+  .lines-button {
+    @include transform(translate(20px, -21px) scale(0.9));
+  }
+  .logotype {
+    background-size: 80%;
+  }
+}
+
+.logotype {
+  @include transition(all, 0.3s, ease);
+  @include respond-to(tablet) {
+    display: inline-block;
+    height: 100%;
+    top: auto;
+  }
+  background-image: url(img/logotype.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  display: block;
+  line-height: $header-height;
+  margin-left: $h4;
+  padding: 2.133rem 2.79rem;
+  position: relative;
+  top: 1em;
+  text-indent: -100%;
+  width: 70px; height: 40px;
+}
+
+.trifecta {
+  // background: $purple;
+  height: auto;
+  .featured {
+    @extend %trifecta;
+  }
+}
+
+.list {
+  .centerpiece {
+    width: 95%;
+  }
+  height: auto;
+  @extend %grid-list;
+  h3 {
+    font-weight: 100;
+  }
+  button {
+    @extend %button;
+    margin-top: 4rem;
+  }
+}
+
+
+/* =HOMEPAGE
+----------------------------------------------- */
+.mask-container {
+  @extend %mask;
+}
+
+#bgvid {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  min-width: 100%; min-height: 100vh;
+  width: auto; height: auto;
+  z-index: -100;
+}
+
+// #bgvid {
+// position: fixed;
+// right: 0;
+// bottom: 0;
+// width: auto;
+// min-width: 100%;
+// height: auto;
+// min-height: 100%;
+// z-index: -100;
+// background: transparent url(video-bg.jpg) no-repeat;
+// background-size: cover;
+// }
+
+.video-intro {
+  padding: 0; //$h2;
+  position: relative;
+  height: 100vh;
+  background-position: center;
+  @include respond-to(laptop) {
+    background-image: none !important;
+  }
+  video {
+    @include respond-to(mobile) {
+      display: none;
+    }
+    @include respond-to(laptop) {
+      display: inline-block;
+    }
+  }
+  .intro-copy {
+    @include respond-to(mobile) {
+      background: hsla(345, 6%, 13%, 0.35);
+    }
+    @include respond-to(tablet) {
+      background: hsla(345, 6%, 13%, 0.45);
+      left: 5rem;
+      width: 75%;
+      top: 10rem;
+      bottom: auto;
+      padding: $h2;
+    }
+    padding: $h3;
+    position: absolute;
+    bottom: $h4; left: 0;
+    text-align: left;
+    width: 100%;
+    h1 {
+      color: $white;
+      margin-bottom: 0;
+      &::after {
+        content: none;
+      }
+    }
+    p {
+      color: $white;
+      padding: $base 0;
+    }
+    button {
+      @extend %button;
+    }
+  }
+  // .centerpiece {
+  //   @extend %centerpiece;
+  //   margin-top: 25rem;
+  // }
+}
+
+.service-portal {
+  position: relative;
+  background-size: cover;
+  section p {
+    padding: 1rem;
+    color: white;
+  }
+  section a {
+    width: 100%;
+    margin: 0px auto;
+    text-align: center;
+    display: block;
+    button {
+      width: calc(100% - 1rem);
+    }
+  }
+  button {
+    @extend %button;
+  }
+  .halfpiece {
+    @extend %halfpiece;
+    margin-top: 3rem;
+  }
+}
+
+.testimonial {
+  @extend %grid-list;
+  @extend %mask;
+  padding: 0;
+  height: 100vh;
+  position: relative;
+  .centerpiece {
+    @include translate(0, -50%);
+    @include respond-to(laptop) {
+      padding: $h3;
+    }
+    padding: $h5;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    .blockquote {
+      @extend %blockquote;
+      @include respond-to(laptop) {
+        font-size: $h3;
+      }
+      font-size: $base;
+      line-height: 1.5;
+    }
+    p {
+      margin: 0;
+      padding:0;
+    }
+    p:last-of-type {
+      margin-bottom: 2rem;
+    }
+    button {
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+/* =WORK - MAIN
+----------------------------------------------- */
+.work {
+  .centerpiece {
+    background: hsla(345, 6%, 13%, 0.75);
+  }
+  button {
+    @extend %button;
+  }
+}
+
+.featured-projects {
+  height: auto;
+  section {
+    @include respond-to(laptop) {
+      padding: $h5;
+    }
+    padding: $h5 0;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .featured {
+    @extend %grid-elem;
+    .project-title {
+      @include respond-to(laptop) {
+        font-size: $h4;
+      }
+      background: transparentize($black, .1);
+      font-size: $base;
+      font-weight: 800;
+      margin: 0 auto;
+      padding: $h5;
+      position: absolute;
+      display: block;
+      bottom: 0;
+    }
+  }
+}
+
+.work-clients {
+  @extend %grid-list;
+  height: auto;
+  ul {
+    li {
+      color: white;
+      float: none;
+      position: relative;
+      display: inline-block;
+      padding: 1rem 0;
+      img {
+        width: 100px;
+        height: auto;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+.case-studies {
+  height: auto;
+  section {
+    @extend %clearfix;
+    margin: $h1 0 $base 0;
+    .case-info {
+      display: inline-block;
+      color: $white;
+      margin-bottom: $h5;
+      position:relative;
+      h2 {
+        text-align: left;
+      }
+    }
+    .vid-contain {
+      @include respond-to(laptop) {
+        padding-left: 2rem;
+      }
+      position: relative;
+      display: inline-block;
+      i {
+        position:absolute;
+        bottom: 1rem;
+        right: 1rem;
+        color: #FFF;
+        cursor: pointer;
+      }
+      video {
+        width: 100%;
+        background: #000;
+      }
+      img {
+        width: 100%;
+      }
+    }
+    &:first-of-type {
+      margin-top: 0;
+    }
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* SERVICES
+----------------------------------------------- */
+.services {
+  .centerpiece {
+    background: hsla(345, 6%, 13%, 0.75);
+  }
+  button {
+    @extend %button;
+  }
+  .icon-display {
+    @include respond-to(mobile) {
+      display: none;
+    }
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+    height: 100px;
+    li {
+      @include respond-to(laptop) {
+        width: 20%;
+      }
+      position: relative;
+      display: inline-block;
+      height: inherit;
+      width: 50%;
+      a {
+        position: absolute;
+        top:0; left:0;
+        bottom:0; right:0;
+        .icon {
+          @include respond-to(laptop) {
+            width: 60px;
+          }
+          width: 40px;
+        }
+      }
+      .event-management {
+        &::after {
+          content: "Event Management";
+          text-align: center;
+          font-size: 12pt;
+          display: block;
+          position: absolute;
+          width: 100%;
+          margin: 0px;
+          bottom: -2.5rem;
+        }
+      }
+      .live-event-production {
+        &::after {
+          content: "Live Event Production";
+          text-align: center;
+          font-size: 12pt;
+          display: block;
+          position: absolute;
+          width: 100%;
+          margin: 0px;
+          bottom: -2.5rem;
+        }
+      }
+      .video-production {
+        &::after {
+          content: "Video Production";
+          text-align: center;
+          font-size: 12pt;
+          display: block;
+          position: absolute;
+          width: 100%;
+          margin: 0px;
+          bottom: -2.5rem;
+        }
+      }
+      .special-events {
+        &::after {
+          content: "Special Events";
+          text-align: center;
+          font-size: 12pt;
+          display: block;
+          position: absolute;
+          width: 100%;
+          margin: 0px;
+          bottom: -2.5rem;
+        }
+      }
+      .rentals {
+        &::after {
+          content: "Rentals";
+          text-align: center;
+          font-size: 12pt;
+          display: block;
+          position: absolute;
+          width: 100%;
+          margin: 0px;
+          bottom: -2.5rem;
+        }
+      }
+    }
+  }
+}
+
+.approach {
+  height: auto;
+  text-align: center;
+  .centerpiece{
+    @extend %centerpiece;
+  }
+  .featured {
+    padding: 3rem 0;
+    @extend %trifecta;
+    h2 {
+      border-radius: 100px;
+      background: $purple;
+      height: 200px;
+      width: 200px;
+      margin: 0px auto 2rem;
+      padding: 4.5rem 0 0;
+      position: relative;
+      display: block;
+      font-size: 24pt;
+      text-align: center;
+      // @include respond-to(mobile) {
+      //   &::after {
+      //     display: none;
+      //   }
+      // }
+      // @include respond-to(laptop) {
+      //   &::after {
+      //     content: ">";
+      //     position: absolute;
+      //     left: 15rem;
+      //     font-size: 44pt;
+      //     line-height: 24pt;
+      //     color: $lime-green;
+      //   }
+      // }
+    }
+    p {
+      padding: 0 3rem;
+    }
+    &:last-of-type {
+      h2 {
+        &::after {
+          content: "";
+        }
+      }
+    }
+  }
+  button {
+    @extend %button;
+  }
+}
+
+.rental-box {
+  width: 100%;
+  position: relative;
+  display: block;
+  height: 100px;
+  h3 {
+    text-align: right;
+    padding: 0 2rem;
+  }
+  div {
+    text-align: left;
+    color: white;
+    font-size: 14pt;
+    padding: 0 2rem;
+  }
+}
+
+/* LED TECH
+----------------------------------------------- */
+.icon {
+  @include translate(-50%, -50%);
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 60px; height: auto;
+}
+
+.led {
+  @include respond-to(laptop) {
+    padding: $h2 8rem;
+  }
+  .centerpiece {
+    background: hsla(345, 6%, 13%, 0.75);
+  }
+  p {
+    // font-size: $small;
+    font-weight: 300;
+  }
+  button {
+    @extend %button;
+  }
+}
+
+.led-products {
+  @extend %clearfix;
+  height: auto;
+  h1 {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+  .featured {
+    @extend %grid-elem;
+    height: 25rem;
+    @include respond-to(mobile) {
+      margin-top: 1rem;
+    }
+    @include respond-to(laptop) {
+      padding: 0;
+      width: calc(50% - 2rem);
+      margin: 0 1rem;
+    }
+    a {
+      @include transition;
+      background: $mask-black;
+      &:hover {
+        background: transparentize($magenta, 0.7);
+      }
+    }
+    .project-title {
+      @include respond-to(laptop) {
+        font-size: $h4;
+      }
+      background: transparentize($black, .1);
+      font-size: $base;
+      font-weight: 800;
+      margin: 0 auto;
+      padding: $h5;
+      position: absolute;
+      display: block;
+      bottom: 0;
+    }
+  }
+  .benefit {
+    @extend %trifecta;
+    margin-top: 5rem;
+  }
+}
+
+.screen-items {
+  section {
+    padding: 0 1rem;
+  }
+  h2 {
+    margin-top: 2rem;
+  }
+  p {
+    margin-top:0;
+  }
+  .featured {
+    @extend %grid-elem;
+  }
+}
+
+/* TEAM
+----------------------------------------------- */
+.team {
+  .centerpiece {
+    background: hsla(345, 6%, 13%, 0.75);
+  }
+  p {
+    font-size: $base;
+    font-weight: 300;
+  }
+  button {
+    @extend %button;
+  }
+}
+
+.team-profiles {
+  height: auto;
+  .featured {
+    @extend %grid-elem;
+    text-align: center;
+    height: auto;
+    min-height: 27rem;
+    padding: 1rem;
+    h2 {
+      position: relative;
+      top: 0;
+      font-size: 24pt;
+    }
+    .profile-contain {
+      width: 100%;
+      height: auto;
+      img {
+        opacity: 0;
+        display: inline-block !important;
+      }
+    }
+    a {
+      position: relative;
+      display: inline-block;
+    }
+  }
+}
+
+.team-mem-head {
+  height: 50vh;
+  .centerpiece {
+    padding-top: 8vh;
+  }
+  h1 {
+    &::after {
+      display:none;
+    }
+  }
+  h1, h2 {
+    text-align: left;
+  }
+}
+
+.team-mem-body {
+  height: auto;
+  padding: 0;
+  @include respond-to(mobile) {
+    padding-bottom: 1rem;
+  }
+  @include respond-to(tablet) {
+    padding-bottom: 1rem;
+  }
+  @include respond-to(laptop) {
+    padding-bottom: 0;
+  }
+  .team-mem-img {
+    margin-bottom: -0.5rem;
+    img {
+      height: 100%;
+      display: inline-block !important;
+    }
+  }
+  .team-mem-story {
+    color: white;
+    padding: 1rem 5rem 0 2rem;
+  }
+}
+
+/* CONTACT
+----------------------------------------------- */
+.contact {
+  .centerpiece {
+    background: hsla(345, 6%, 13%, 0.75);
+  }
+}
+
+.contact-col {
+  color: white;
+  padding: 0 2rem;
+  h1 {
+    &::after {
+      content: none;
+    }
+  }
+}
+
+.contact-form {
+  color: white;
+  @include respond-to(mobile) {
+    padding: 3rem 0 0;
+  }
+  @include respond-to(tablet) {
+    padding: 3rem 2rem 0;
+  }
+  @include respond-to(laptop) {
+    padding: 0 7rem;
+  }
+  p {
+    margin-bottom: 1rem;
+  }
+  input {
+    padding: .5rem;
+    font-size: 16pt;
+  }
+}
+
+.wpcf7-form {
+  button{
+    @extend %button;
+  }
+}
+
+/* FOOTER
+----------------------------------------------- */
+.closing-statement {
+  height: auto;
+  background: $purple;
+  h1 {
+    &::after {
+      content: none;
+    }
+  }
+  h2, h4 {
+    margin: 1rem 0;
+  }
+  button {
+    margin: 1rem 0;
+    @extend %button;
+  }
+}
+
+footer {
+  background-color: $text-black;
+  color: $white;
+  padding: $h4;
+  .centerpiece {
+    text-align: center;
+    h1 {
+      &::before {
+        @include translate(-50px,0);
+        background-color: $white;
+        content: "";
+        position: absolute;
+        top: -$base; left: 50%;
+        width: 100px; height: 2px;
+      }
+      &::after {
+        display: none;
+      }
+    }
+    em {
+      display: block;
+    }
+    div, .copyright {
+      display: inline-block;
+      width: 100%;
+    }
+    div a {
+      padding: 1rem .2rem;
+      &:hover {
+        color: $sky-blue;
+      }
+    }
+    .copyright {
+      font-weight: 300;
+      font-size: .8rem;
+      margin: 1rem 0;
+      line-height: 1.2rem;
+      @include respond-to(laptop){
+        display: block;
+      }
+      @include respond-to(desktop){
+        display: block;
+      }
+    }
+    .newsletter {
+      color: $sky-blue;
+    }
+  }
+}
+
+body {
+  img:last-of-type {
+    display: none;
+  }
+}
