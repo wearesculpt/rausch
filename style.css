@@ -219,7 +219,6 @@ body.ie {
 
 img,
 object {
-  height: auto;
   width: 100%; }
 
 figure {
@@ -1069,7 +1068,8 @@ section {
     .work-clients ul li img {
       width: 100px;
       height: auto;
-      margin: 0 auto; }
+      margin: 0 auto;
+      display: inline-block !important; }
 
 .case-studies {
   height: auto; }
@@ -1423,8 +1423,5 @@ footer {
           display: block; } }
     footer .centerpiece .newsletter {
       color: #0099FF; }
-
-body img:last-of-type {
-  display: none; }
 
 /*# sourceMappingURL=style.css.map */

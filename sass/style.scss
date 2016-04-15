@@ -556,6 +556,7 @@ section {
         width: 100px;
         height: auto;
         margin: 0 auto;
+        display: inline-block !important;
       }
     }
   }
@@ -1053,11 +1054,5 @@ footer {
     .newsletter {
       color: $sky-blue;
     }
-  }
-}
-
-body {
-  img:last-of-type {
-    display: none;
   }
 }
